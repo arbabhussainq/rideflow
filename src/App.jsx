@@ -2,7 +2,7 @@ import React, { useState, useEffect, useMemo } from "react";
 import Header from "./components/Header";
 import ControlPanel from "./components/ControlPanel";
 import AnimatedCityMap from "./components/AnimatedCityMap";
-import PlaybackController from "./components/PlayBackController";
+import PlaybackController from "./components/PlaybackController";
 import MetricCards from "./components/MetricCards";
 import StrategyComparison from "./components/StrategyComparison";
 import SimulationLedger from "./components/SimulationLedger";
