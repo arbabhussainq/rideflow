@@ -8,14 +8,20 @@ export class DeterministicRNG {
     return this.seed / 4294967296;
   }
 
-  // Chapter 2 Uniform Interarrival Time 1-8 mins[cite: 1]
-  getInterarrival() {
-    const rd = Math.floor(this.next() * 1000) + 1; // 001 - 1000[cite: 1]
-    const value = Math.min(Math.ceil(rd / 125), 8);
+  // getInterarrival() {
+  //   const rd = Math.floor(this.next() * 1000) + 1;
+  //   const value = Math.min(Math.ceil(rd / 125), 8);
+  //   return { rd, value };
+  // }
+
+  getInterarrival(lambda = 0.25) {
+    const u = Math.max(0.0001, this.next());
+    const rawMinutes = -Math.log(u) / lambda;
+    const value = Math.max(0, Math.round(rawMinutes));
+    const rd = Math.floor(u * 1000) + 1;
     return { rd, value };
   }
 
-  // 2-Digit Local Traffic & Pickup Delay (1 - 3 min)
   getPickupDelay() {
     const rd = Math.floor(this.next() * 100) + 1;
     let value = 1;
@@ -24,7 +30,6 @@ export class DeterministicRNG {
     return { rd, value };
   }
 
-  // 2-Digit Trip Duration (6, 9, 12 min)
   getTripDuration() {
     const rd = Math.floor(this.next() * 100) + 1;
     let value = 6;
